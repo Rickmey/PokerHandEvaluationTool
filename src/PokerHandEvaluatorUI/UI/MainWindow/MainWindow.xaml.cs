@@ -62,7 +62,7 @@ namespace PokerEvaluationToolUI
             switch (text)
             {
                 case "Texas Holdem": gameType = GameTypes.TexasHoldem; break;
-                case "Seven Card Stud": gameType = GameTypes.SevenCardStud; break;
+                //case "Seven Card Stud": gameType = GameTypes.SevenCardStud; break;
                 case "Razz": gameType = GameTypes.Razz; break;
                 default: throw new ArgumentException("Gametype not found");
             }
