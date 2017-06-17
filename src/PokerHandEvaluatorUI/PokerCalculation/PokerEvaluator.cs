@@ -64,7 +64,7 @@ namespace PokerCalculations
                             if (hands[j] == 0)
                                 continue;
 
-                            var value = PokerHandEvaluator.HighVariants.HighVariant.GetHandValue(randomCards | board | hands[j], 7);
+                            var value = PokerHandEvaluator.HighVariants.TexasHoldem.GetHandValue(randomCards | board | hands[j], 7);
                             values[j] = value;
                             if (value > maxValue)
                                 maxValue = value;
@@ -79,7 +79,7 @@ namespace PokerCalculations
                                 continue;
                             randomCards = PokerHandEvaluator.Utils.GetRandomCards(usedCards | currentUsedCards, nNeededCards);
                             currentUsedCards |= randomCards;
-                            var value = PokerHandEvaluator.HighVariants.HighVariant.GetHandValue(randomCards | hands[j], 7);
+                            var value = PokerHandEvaluator.HighVariants.TexasHoldem.GetHandValue(randomCards | hands[j], 7);
                             values[j] = value;
                             if (value > maxValue)
                                 maxValue = value;

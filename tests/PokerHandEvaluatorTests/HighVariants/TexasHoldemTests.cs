@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace PokerHandEvaluator.HighVariants.Tests
 {
     [TestClass()]
-    public class HighVariantTests
+    public class TexasHoldemTests
     {
         ulong getTestValue(string hand)
         {
             ulong cards = Utils.StringToHandMask(hand);
-            return HighVariant.GetHandValue(cards, (uint)Utils.BitCount(cards));
+            return TexasHoldem.GetHandValue(cards, (uint)Utils.BitCount(cards));
         }
 
         void firstIsAlwaysLower(List<KeyValuePair<int, string>> list1, List<KeyValuePair<int, string>> list2)
@@ -44,6 +44,8 @@ namespace PokerHandEvaluator.HighVariants.Tests
             new KeyValuePair<int, string>(5, "Ks Kd Kh Kc 2d"),
             new KeyValuePair<int, string>(5, "Ks Kd Kh Kc Qd"),
             new KeyValuePair<int, string>(6, "Ks Kd Kh Kc Qd Qh"),
+            new KeyValuePair<int, string>(7, "2s 2d 2h 2c Qd Qh Qs"),
+            new KeyValuePair<int, string>(7, "2s 2d 2h 2c 4d 5h 6s"),
         };
 
         List<KeyValuePair<int, string>> fullhouse = new List<KeyValuePair<int, string>>
@@ -56,10 +58,9 @@ namespace PokerHandEvaluator.HighVariants.Tests
             new KeyValuePair<int, string>(6 , "As Ad Ah Kc Kd Kh"),
             new KeyValuePair<int, string>(6 , "Ks Kd Kh Qc Qd Qh"),
             new KeyValuePair<int, string>(6 , "Ks Kd Kh 2c 2d 2h"),
-            new KeyValuePair<int, string>(7 , "As Ad Ah Ac 2c 2d 2h"),
-            new KeyValuePair<int, string>(7 , "As Ad Ah Ac Kc Kd Kh"),
-            new KeyValuePair<int, string>(7 , "Ks Kd Kh Kc Qc Qd Qh"),
-            new KeyValuePair<int, string>(7 , "Ks Kd Kh Kc 2c 2d 2h")
+            new KeyValuePair<int, string>(7 , "As Ad Ah 5c 2c 2d 3h"),
+            new KeyValuePair<int, string>(7 , "As Ad Ah 4c Kc Kd Kh"),
+            new KeyValuePair<int, string>(7 , "Ks Kd Kh 2c 2s 2d Qh"),
         };
 
         List<KeyValuePair<int, string>> flush = new List<KeyValuePair<int, string>>
@@ -108,6 +109,7 @@ namespace PokerHandEvaluator.HighVariants.Tests
             new KeyValuePair<int, string>(4 , "Ks Kd 2h 2d"),
             new KeyValuePair<int, string>(5 , "Ks Kd 2h 2d 3d"),
             new KeyValuePair<int, string>(6 , "Ks Kd 2h 2d 3d 3c"),
+            new KeyValuePair<int, string>(7 , "Ks Kd 2h 2d 3d 3c Ah"),
         };
 
 
@@ -131,8 +133,10 @@ namespace PokerHandEvaluator.HighVariants.Tests
         };
 
         [TestMethod()]
-        public void HighOnePairTest()
+        public void HoldemOnePairTest()
         {
+            Assert.IsTrue(getTestValue("3d 3s Ah Kh Qh 2d 4s") == getTestValue("3d 3s Ah Kh Qh Jd 9s"));
+
             firstIsAlwaysLower(onepair, twopair);
             firstIsAlwaysLower(onepair, trips);
             firstIsAlwaysLower(onepair, straight);
@@ -143,8 +147,10 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighTwoPairTest()
+        public void HoldemTwoPairTest()
         {
+            Assert.IsTrue(getTestValue("3d 3s 4h 4s Ah 8d 2s") == getTestValue("3d 3s 4h 4s Ah Kd Qs"));
+
             firstIsAlwaysLower(twopair, trips);
             firstIsAlwaysLower(twopair, straight);
             firstIsAlwaysLower(twopair, flush);
@@ -154,7 +160,7 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighTripsTest()
+        public void HoldemTripsTest()
         {
             firstIsAlwaysLower(trips, straight);
             firstIsAlwaysLower(trips, flush);
@@ -164,7 +170,7 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighStraightTest()
+        public void HoldemStraightTest()
         {
             firstIsAlwaysLower(straight, flush);
             firstIsAlwaysLower(straight, fullhouse);
@@ -173,10 +179,8 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighFlushTest()
+        public void HoldemFlushTest()
         {
-            // for stud the suit matters cdhs
-
             Assert.IsTrue(getTestValue("Ad 2d 3d 6d Td") == getTestValue("As 2s 3s 6s Ts"));
             Assert.IsTrue(getTestValue("2d 3d 4d 5d 7d") < getTestValue("2s 3s 4s 5s 8s"));
             Assert.IsTrue(getTestValue("2c 3c 4c 5c 7c") < getTestValue("2d 3d 4d 5d 8d"));
@@ -190,18 +194,20 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighFullHouseTest()
+        public void HoldemFullHouseTest()
         {
             Assert.IsTrue(getTestValue("Ad As Ac 2d 2h") < getTestValue("Ad As Ac 3d 3h"));
             Assert.IsTrue(getTestValue("Ad As Ac 2d 2h") > getTestValue("Ah As 2c 2d 2h"));
             Assert.IsTrue(getTestValue("Ad As Ac Ah 2d 2h 2c") < getTestValue("Ad As Ac Ah 3d 3h 3c"));
             Assert.IsTrue(getTestValue("Ad As Ac Kd Kh") > getTestValue("Ah As 2c 2d 2h"));
+            Assert.IsTrue(getTestValue("3d 3s 3c 2s 2d 2h") == getTestValue("3d 3s 3c 2s 2d Ah"));
+            Assert.IsTrue(getTestValue("3d 3s 3c 2s 2d 2h Ah") == getTestValue("3d 3s 3c 2s 2d Kh Ah"));
             firstIsAlwaysLower(fullhouse, quads);
             firstIsAlwaysLower(fullhouse, straightFlush);
         }
 
         [TestMethod()]
-        public void HighQuadsTest()
+        public void HoldemQuadsTest()
         {
             Assert.IsTrue(getTestValue("Ad As Ac Ah 2h") < getTestValue("Ad As Ac Ah 3h"));
             Assert.IsTrue(getTestValue("Ad As Ac Ah Kh") > getTestValue("2d 2s 2c 2h 3h"));
@@ -209,10 +215,16 @@ namespace PokerHandEvaluator.HighVariants.Tests
         }
 
         [TestMethod()]
-        public void HighStraightFlushTest()
+        public void HoldemStraightFlushTest()
         {
             Assert.IsTrue(getTestValue("As 2s 3s 4s 5s") < getTestValue("2s 3s 4s 5s 6s"));
             Assert.IsTrue(getTestValue("As 2s 3s 4s 5s Ad Ah") < getTestValue("2s 3s 4s 5s 6s 6h 6d"));
+        }
+
+        [TestMethod()]
+        public void HoldemDebugTest()
+        {
+            Assert.IsTrue(getTestValue("Ad As 2h 2s") < getTestValue("Ad As Ah 2s"));
         }
     }
 }

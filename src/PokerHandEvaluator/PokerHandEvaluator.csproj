@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FastRandom.cs" />
-    <Compile Include="HighVariants\HighVariant.cs" />
+    <Compile Include="HighVariants\TexasHoldem.cs" />
     <Compile Include="HighVariants\LookupTables.cs" />
     <Compile Include="LowVariants\LookupTables.cs" />
     <Compile Include="LowVariants\Razz.cs" />
