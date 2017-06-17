@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerHandEvaluator", "src\PokerHandEvaluator\PokerHandEvaluator.csproj", "{4663A183-6816-4995-855A-CD866C656FD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerHandEvaluatorTests", "tests\PokerHandEvaluatorTests\PokerHandEvaluatorTests.csproj", "{12231697-15EB-4C11-9AA2-051A5D7EECCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerEvaluationToolUI", "src\PokerHandEvaluatorUI\PokerEvaluationToolUI.csproj", "{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4663A183-6816-4995-855A-CD866C656FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4663A183-6816-4995-855A-CD866C656FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4663A183-6816-4995-855A-CD866C656FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4663A183-6816-4995-855A-CD866C656FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12231697-15EB-4C11-9AA2-051A5D7EECCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12231697-15EB-4C11-9AA2-051A5D7EECCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12231697-15EB-4C11-9AA2-051A5D7EECCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12231697-15EB-4C11-9AA2-051A5D7EECCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

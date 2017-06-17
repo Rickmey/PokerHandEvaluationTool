@@ -1,0 +1,15 @@
+﻿<Application x:Class="PokerEvaluationToolUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PokerEvaluationToolUI"
+             StartupUri="UI/MainWindow/MainWindow.xaml">
+    <Application.Resources>
+        <!--CONVERTER-->
+        <local:FloatToPercentConverter x:Key="floatToPercentConverter" />
+        <local:ValueTimesXConverter x:Key="valueTimesXConverter" />
+        <local:RankToImagePathConverter x:Key="rankToImagePathConverter" />
+        <local:SuitToImagePathConverter x:Key="suitToImagePathConverter" />
+        <local:UsedToOpacityConverter x:Key="usedToOpacityConverter" />
+        <local:HighlightedToColorConverter x:Key="highlightedToColorConverter" />
+    </Application.Resources>
+</Application>

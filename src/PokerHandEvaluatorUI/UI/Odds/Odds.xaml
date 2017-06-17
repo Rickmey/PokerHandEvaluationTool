@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="PokerEvaluationToolUI.Odds"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="300">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border BorderBrush="#FF000000" BorderThickness="1" Background="White">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Odds: " />
+                <Label Content="{Binding Odds, Converter={StaticResource floatToPercentConverter}, FallbackValue='00.00%'}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
