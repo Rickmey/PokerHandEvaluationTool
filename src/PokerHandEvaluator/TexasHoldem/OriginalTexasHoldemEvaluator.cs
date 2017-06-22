@@ -1,5 +1,33 @@
 ﻿namespace PokerHandEvaluator.TexasHoldem
 {
+    // Much of this code is derived from poker.eval (look for it on sourceforge.net).
+    // This library is covered by the GPL Gnu license. See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html 
+    // for more information on this license.
+
+    // This code is a very fast, native C# Texas Holdem mask evaluator (containing no interop or unsafe code). 
+    // This code can enumarate 35 million 5 card hands per second and 29 million 7 card hands per second on my desktop machine.
+    // That's not nearly as fast as the heavily macro-ed poker.eval C library. However, this implementation is
+    // in roughly the same ballpark for speed and is quite usable in C#.
+
+    // The speed ups are mostly table driven. That means that there are several very large tables included in this file. 
+    // The code is divided up into several files they are:
+    //      HandEvaluator.cs - base mask evaluator
+    //      HandIterator.cs - methods that support IEnumerable and methods that validate the mask evaluator
+    //      HandAnalysis.cs - methods to aid in analysis of Texas Holdem Hands.
+    //      PocketHands.cs - a class to manipulate pocket hands.
+    //      PocketQueryParser - a parser used to interprete pocket mask query language statements.
+    //                          The runtime portion of the query parser is copyrighted by Malcolm Crowe (but is freely distributable)
+
+    // Written (ported) by Keith Rule - Sept 2005, updated May 2007
+
+
+    /// <summary>
+    /// A Texas Holdem evaluation algorithm based on the pokereval C code ported to C# by Keith Rule in 2007.
+    /// Pokereval here: <a href="link">https://github.com/v2k/poker-eval</a>
+    /// C# port: <a href="link">https://www.codeproject.com/Articles/12279/Fast-Texas-Holdem-Hand-Evaluation-and-Analysis</a>
+    /// 
+    /// Depending on the specific hand this code can evaluate ~110mio hands per second.
+    /// </summary>
     internal static class EvaluatorOriginal
     {
         public enum HandTypes

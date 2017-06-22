@@ -1,5 +1,21 @@
 ﻿namespace PokerHandEvaluator.TexasHoldem
 {
+    /// <summary>
+    /// A Texas Holdem evaluation algorithm based on the pokereval C code.
+    /// Pokereval here: <a href="link">https://github.com/v2k/poker-eval</a>
+    /// 
+    /// In comparison to the original C# port <see cref="EvaluatorOriginal"/> this code is ~18% faster (<see cref="exhaustiveTexasHoldem()"/>).
+    /// Depending on the specific hand this code can evaluate ~130mio hands per second.
+    /// 
+    /// The increase of performance is the result of multiple optimizations.
+    /// - The value of a hand was calculated and stored even though it could be returned directly.
+    /// - Kicker problem:
+    ///     It's easy and fast to find trips in a hand like this: TTT A92.
+    ///     The problem is to find the highest remaining two cards in the hand.
+    ///     The original uses lookups in pregenerated tables and some bit operations (63 system calls).
+    ///     This code removes the trips from the hand and looks up the remaining two bits (26 system calls).
+    ///     As a nice side effect: the code is better readable and easier to understand. 
+    /// </summary>
     internal static class Evaluator
     {
         #region Const
@@ -23,6 +39,12 @@
 
         #endregion Const
 
+        /// <summary>
+        /// Evaluates a Texas Holdem hand. Supports 1-7 cards hands.
+        /// </summary>
+        /// <param name="cardMask">ulong where every of the first 52 bits represents a card</param>
+        /// <param name="numberOfCards">For performance. Must match the number of set bits in cardMask.</param>
+        /// <returns>Value of the hand</returns>
         internal static uint GetHandValue(ulong cardMask, uint numberOfCards)
         {
             uint suitClub = (uint)(cardMask & fullRankSet);
@@ -78,26 +100,24 @@
                     return LookupTables.top5OrLessBitTable[ranks];
 
                 case 1:
-                    {
-                        // one pair
-                        twoMask = ranks ^ (suitClub ^ suitDiamond ^ suitHeart ^ suitSpade);
-                        // ranks & ~twoMask = remove pair from ranks and get highest 3 cards
-                        return onePairHandValue + (twoMask << pairOrHigherShift) + LookupTables.top3OrLessBitTable[ranks & ~twoMask];
-                    }
+
+                    // one pair
+                    twoMask = ranks ^ (suitClub ^ suitDiamond ^ suitHeart ^ suitSpade);
+                    // ranks & ~twoMask = remove pair from ranks and get highest 3 remaining cards
+                    return onePairHandValue + (twoMask << pairOrHigherShift) + LookupTables.top3OrLessBitTable[ranks & ~twoMask];
+
                 case 2:
 
                     twoMask = ranks ^ (suitClub ^ suitDiamond ^ suitHeart ^ suitSpade);
                     if (twoMask != 0)
                     {
                         // two pair
-                        return twoPairHandValue + (twoMask << pairOrHigherShift) + LookupTables.top1OrLessBitTable[(ranks & ~twoMask)];
+                        return twoPairHandValue + (twoMask << pairOrHigherShift) + LookupTables.top1OrLessBitTable[ranks & ~twoMask];
                     }
-                    else
-                    {
-                        // trips
-                        threeMask = ((suitClub & suitDiamond) | (suitHeart & suitSpade)) & ((suitClub & suitHeart) | (suitDiamond & suitSpade));
-                        return tripsHandValue + (threeMask << pairOrHigherShift) + LookupTables.top2OrLessBitTable[ranks & ~threeMask];
-                    }
+
+                    // trips
+                    threeMask = ((suitClub & suitDiamond) | (suitHeart & suitSpade)) & ((suitClub & suitHeart) | (suitDiamond & suitSpade));
+                    return tripsHandValue + (threeMask << pairOrHigherShift) + LookupTables.top2OrLessBitTable[ranks & ~threeMask];
 
                 default:
 
@@ -119,12 +139,13 @@
 
                     // fullhouse
                     threeMask = ((suitClub & suitDiamond) | (suitHeart & suitSpade)) & ((suitClub & suitHeart) | (suitDiamond & suitSpade));
-                    // AAA222K ->  topThreeMask is A; (threeMask & ~topThreeMask) = 2; twoMask is 0
-                    // AAA222 -> topThreeMask is A; (threeMask & ~topThreeMask) = 2; twoMask is 0
-                    // AAA22K -> topThreeMask is A; (threeMask & ~topThreeMask) = 0; twoMask is 2
+                    // AAA222K  -> threeMask= A2; topThreeMask= A; (threeMask & ~topThreeMask)= 2; twoMask is 0
+                    // AAA222   -> threeMask= A2; topThreeMask= A; (threeMask & ~topThreeMask)= 2; twoMask is 0
+                    // AAA22K   -> threeMask= A;  topThreeMask= A; (threeMask & ~topThreeMask)= 0; twoMask is 2
+                    // AAA2233  -> threeMask= A;  topThreeMask= A; (threeMask & ~topThreeMask)= 0; twoMask is 2,3
+                    // (threeMask & ~topThreeMask) or twoMask is 0
                     uint topThreeMask = LookupTables.top1OrLessBitTable[threeMask];
-                    topTwoMask = LookupTables.top1OrLessBitTable[twoMask];
-                    return fullHouseHandValue + (topThreeMask << pairOrHigherShift) + (threeMask & ~topThreeMask) + topTwoMask;
+                    return fullHouseHandValue + (topThreeMask << pairOrHigherShift) + (threeMask & ~topThreeMask) + LookupTables.top1OrLessBitTable[twoMask];
             }
         }
     }

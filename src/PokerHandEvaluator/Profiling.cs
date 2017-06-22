@@ -10,8 +10,8 @@ namespace PokerHandEvaluator
     {
         static void Main()
         {
-            //oldVsNewTexasHoldemEvaluation();
-            exhaustiveTexasHoldem();
+            oldVsNewTexasHoldemEvaluation();
+            //exhaustiveTexasHoldem();
         }
 
         static void exhaustiveTexasHoldem()
