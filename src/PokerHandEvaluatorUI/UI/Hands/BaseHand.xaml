@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:PokerEvaluationToolUI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
+    <DockPanel
+        Margin="10">
         <local:Odds
             DataContext="{Binding Odds}"
             DockPanel.Dock="Top"/>

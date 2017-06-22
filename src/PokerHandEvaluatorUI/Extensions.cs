@@ -86,16 +86,5 @@ namespace PokerEvaluationToolUI
                 default: throw new System.ArgumentException("Layout not found");
             }
         }
-
-        public static string ToFriendlyString(this PokerCalculations.GameTypes gameTypes)
-        {
-            switch (gameTypes)
-            {
-                case PokerCalculations.GameTypes.TexasHoldem: return "Texas Holdem";
-                case PokerCalculations.GameTypes.SevenCardStud: return "Seven Card Stud";
-                case PokerCalculations.GameTypes.Razz: return "Razz";
-                default: throw new System.ArgumentException("Gametype not found");
-            }
-        }
     }
 }

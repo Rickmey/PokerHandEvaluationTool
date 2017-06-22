@@ -30,7 +30,7 @@
         <local:BaseHand Grid.Column="2" Grid.Row="2"/>
 
         <!--DEAD-->
-        <Grid x:Name="_Dead" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid x:Name="_Dead" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

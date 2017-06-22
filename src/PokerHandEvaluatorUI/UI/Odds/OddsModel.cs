@@ -1,4 +1,4 @@
-﻿using PokerCalculations;
+﻿using PokerHandEvaluator;
 
 namespace PokerEvaluationToolUI
 {
@@ -13,12 +13,12 @@ namespace PokerEvaluationToolUI
 
         public float Odds
         {
-            get { return (Wins + Ties * 0.5f) / Emulations; }
+            get { return (Wins + Ties * 0.5f) / Trials; }
         }
 
-        public int Emulations
+        public uint Trials
         {
-            get { return HandOdds == null ? 0 : HandOdds.Emulations; }
+            get { return HandOdds == null ? 0 : HandOdds.Trials; }
         }
 
         public long TimeInMs

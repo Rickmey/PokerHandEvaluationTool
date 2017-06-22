@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PokerHandEvaluator;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace PokerEvaluationToolUI
@@ -13,21 +14,21 @@ namespace PokerEvaluationToolUI
         public BaseHand()
         {
             var nCards = 2;
-            PokerCalculations.GameTypes gametype;
+            GameTypes gametype;
             if (DesignerProperties.GetIsInDesignMode(this))
             {
-                gametype = PokerCalculations.GameTypes.TexasHoldem;
+                gametype = GameTypes.TexasHoldem;
             }
             else
             {
-                gametype = (PokerCalculations.GameTypes)System.Windows.Application.Current.Properties[AppConfigProperties.GameType];
+                gametype = (GameTypes)System.Windows.Application.Current.Properties[AppConfigProperties.GameType];
             }
 
             switch (gametype)
             {
-                case PokerCalculations.GameTypes.TexasHoldem: nCards = 2; break;
-                case PokerCalculations.GameTypes.SevenCardStud: nCards = 6; break;
-                case PokerCalculations.GameTypes.Razz: nCards = 6; break;
+                case GameTypes.TexasHoldem: nCards = 2; break;
+                case GameTypes.SevenCardStud: nCards = 6; break;
+                case GameTypes.Razz: nCards = 6; break;
                 default: throw new System.ArgumentException("Gametype not found");
             }
 

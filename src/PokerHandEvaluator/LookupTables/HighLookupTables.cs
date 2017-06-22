@@ -1,6 +1,6 @@
-﻿namespace PokerHandEvaluator.HighVariants
+﻿namespace PokerHandEvaluator
 {
-    internal static class LookupTables
+    static partial class LookupTables
     {
         #region Top 5 or less Bit Table 
         internal static readonly uint[] top5OrLessBitTable ={

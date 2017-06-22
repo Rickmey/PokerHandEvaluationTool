@@ -51,7 +51,7 @@
             <ComboBox x:Name="GameTypeCombobox"
                       SelectionChanged="GameType_SelectionChanged">
                 <ComboBoxItem IsSelected="True">Texas Holdem</ComboBoxItem>
-                <!--<ComboBoxItem>Seven Card Stud</ComboBoxItem>-->
+                <ComboBoxItem>Seven Card Stud</ComboBoxItem>
                 <ComboBoxItem>Razz</ComboBoxItem>
             </ComboBox>
 

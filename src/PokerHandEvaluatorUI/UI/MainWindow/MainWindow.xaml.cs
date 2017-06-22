@@ -1,4 +1,4 @@
-﻿using PokerCalculations;
+﻿using PokerHandEvaluator;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,7 +48,7 @@ namespace PokerEvaluationToolUI
         private async void CalculationBtn_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            var result = await Task.Run(() => PokerEvaluator.Evaluate((GameTypes)Application.Current.Properties[AppConfigProperties.GameType], model.GameState.GetBoard(), model.GameState.GetDeadCards(), 15000, model.GameState.GetPlayerCards()));
+            var result = await Task.Run(() => PokerHandEvaluatorAPI.Evaluate((GameTypes)Application.Current.Properties[AppConfigProperties.GameType], model.GameState.GetBoard(), model.GameState.GetDeadCards(), model.GameState.GetPlayerCards()));
             model.GameState.ApplyHandOdds(result);
         }
 
@@ -62,7 +62,7 @@ namespace PokerEvaluationToolUI
             switch (text)
             {
                 case "Texas Holdem": gameType = GameTypes.TexasHoldem; break;
-                //case "Seven Card Stud": gameType = GameTypes.SevenCardStud; break;
+                case "Seven Card Stud": gameType = GameTypes.SevenCardStud; break;
                 case "Razz": gameType = GameTypes.Razz; break;
                 default: throw new ArgumentException("Gametype not found");
             }

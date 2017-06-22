@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokerHandEvaluator;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -99,7 +100,7 @@ namespace PokerEvaluationToolUI
             CurrentSelected = allCards[currentSelectedIndex];
         }
 
-        public void ApplyHandOdds(IReadOnlyList<PokerCalculations.HandOdds> odds)
+        public void ApplyHandOdds(IReadOnlyList<HandOdds> odds)
         {
             for (int i = 0; i < baseHands.Count; i++)
                 baseHands[i].Odds.HandOdds = odds[i];

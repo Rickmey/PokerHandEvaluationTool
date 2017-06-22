@@ -1,7 +1,12 @@
-﻿namespace PokerHandEvaluator
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace PokerHandEvaluator
 {
     public static class Utils
     {
+        #region Random
+
         static SharpNeatLib.Maths.FastRandom FastRND = new SharpNeatLib.Maths.FastRandom();
 
         /// <summary>
@@ -26,6 +31,7 @@
             return mask;
         }
 
+        #endregion Random
 
         #region TextHandling
         public static ulong StringToHandMask(string s)
@@ -97,6 +103,38 @@
                 }
             }
             return builder.ToString();
+        }
+
+        public static string CardMaskToStringSorted(ulong mask)
+        {
+            var list = new List<string>();
+            for (int i = 0; i < CardMasksTable.Length; i++)
+            {
+                var card = CardMasksTable[i];
+                if ((card & ~mask) == 0)
+                    list.Add(CardTable[i]);
+            }
+
+            var sortedList = list.OrderBy(
+                i => i[0] == 'K').ThenBy(
+                i => i[0] == 'Q').ThenBy(
+                i => i[0] == 'J').ThenBy(
+                i => i[0] == 'T').ThenBy(
+                i => i[0] == '9').ThenBy(
+                i => i[0] == '8').ThenBy(
+                i => i[0] == '7').ThenBy(
+                i => i[0] == '6').ThenBy(
+                i => i[0] == '5').ThenBy(
+                i => i[0] == '4').ThenBy(
+                i => i[0] == '3').ThenBy(
+                i => i[0] == '2').ThenBy(
+                i => i[0] == 'A').ToList();
+            var result = string.Empty;
+            foreach (var item in sortedList)
+            {
+                result += item + " ";
+            }
+            return result.Substring(0, result.Length - 1);
         }
 
         // converts card number into the equivalent text string.
@@ -8463,5 +8501,94 @@
             0x8000000000000,
         };
         #endregion
+
+        #region GenerateTable
+        static uint[] generateTopOrBottomNBitTable(int numberOfBits, bool high)
+        {
+            // highest
+            // 8191 = 0x00001FFF = 00000000 00000000 00011111 11111111 
+            // the used rank represent card ranks so it can only use the first 13 bit
+
+            // mask for every bit position to check if the bit is set
+            uint[] bitsmask;
+            if (high)
+                bitsmask = new uint[] { 4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1 };
+            else
+                bitsmask = new uint[] { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096 };
+
+            uint[] result = new uint[8192];
+
+            for (int i = 0; i < 8192; i++)
+            {
+                var bitcount = 0;
+                uint tempResult = 0;
+
+                foreach (uint item in bitsmask)
+                {
+                    if ((i & item) > 0) // checks if bit is set
+                    {
+                        tempResult |= item;
+                        bitcount++;
+                        if (bitcount == numberOfBits)
+                            break;
+                    }
+                }
+                result[i] = tempResult;
+            }
+            return result;
+        }
+
+        internal static void WriteHighestOrLowestNBitTableToFile(int numberOfBits, bool high, string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+                filePath = System.AppDomain.CurrentDomain.BaseDirectory + "output.txt";
+
+            var table = generateTopOrBottomNBitTable(numberOfBits, high);
+            var stringBuilder = new System.Text.StringBuilder();
+            if (high)
+                stringBuilder.Append("        #region Top ");
+            else
+                stringBuilder.Append("        #region Bottom ");
+            stringBuilder.Append(numberOfBits + " or Less Bit Table \r\n\t\tinternal static readonly uint[]");
+            stringBuilder.Append(high ? "top" : "bottom");
+            stringBuilder.Append(numberOfBits + "OrLessBitTable ={\r\n\t\t\t");
+
+            for (int i = 0; i < table.Length; i++)
+            {
+                stringBuilder.AppendFormat("0x{0} ,", table[i].ToString("X"));
+                if (i != 0 && i % 12 == 0)
+                    stringBuilder.Append("\r\n\t\t\t");
+            }
+            stringBuilder.Append("\t\t\r\n\t\t\t};\t\t\t\r\n#endregion");
+            System.IO.File.WriteAllText(filePath, stringBuilder.ToString());
+        }
+        #endregion
+
+        #region AceShifting
+
+        /// <summary>
+        /// Set bits at position 13, 26, 39 and 52.
+        /// 1000 00000000 01000000 00000010 00000000 00010000 00000000
+        /// </summary>
+        const ulong allAcesMask = 0x8004002001000;
+
+        /// <summary>
+        /// Shift aces from position 13 to position 1 and the rest 2 up.
+        /// </summary>
+        /// <param name="cards">Card mask with aces as top card.</param>
+        /// <returns>Card mask with aces as bottom card.</returns>
+        public static ulong ShiftAceToBottom(ulong cards)
+        {
+            return ((~(cards & allAcesMask) & cards) << 1) | ((cards & allAcesMask) >> 12);
+        }
+
+        public static ulong ShiftAceToTop(ulong cards)
+        {
+            var bottomAces = allAcesMask >> 12;
+            return ((~(cards & bottomAces) & cards) >> 1) | ((cards & bottomAces) << 12);
+        }
+
+        #endregion AceShifting
+
     }
 }

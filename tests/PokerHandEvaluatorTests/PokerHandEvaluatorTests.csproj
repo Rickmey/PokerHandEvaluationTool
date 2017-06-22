@@ -59,8 +59,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="HighVariants\TexasHoldemTests.cs" />
-    <Compile Include="LowVariants\RazzTests.cs" />
+    <Compile Include="TexasHoldemTests.cs" />
+    <Compile Include="RazzTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

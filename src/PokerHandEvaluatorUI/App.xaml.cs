@@ -18,7 +18,7 @@ namespace PokerEvaluationToolUI
         protected override void OnStartup(StartupEventArgs e)
         {
             EventAggregator = new EventAggregator();
-            Current.Properties.Add(AppConfigProperties.GameType, PokerCalculations.GameTypes.TexasHoldem);
+            Current.Properties.Add(AppConfigProperties.GameType, PokerHandEvaluator.GameTypes.TexasHoldem);
             Current.Properties.Add(AppConfigProperties.CardLayout, CardLayouts.CenterSuit);
             base.OnStartup(e);
         }
