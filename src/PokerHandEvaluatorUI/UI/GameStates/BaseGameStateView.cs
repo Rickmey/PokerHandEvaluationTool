@@ -37,6 +37,15 @@ namespace PokerEvaluationToolUI
 
             Loaded += (sender, e) =>
             {
+                var main = FindName("_MainGrid");
+                foreach (var hand in this.FindLogicalChildren<BaseHand>(main as DependencyObject))
+                {
+                    baseHands.Add(hand.Model);
+                    foreach (var item in hand.Model.CardModels)
+                        allCards.Add(item);
+                    playerCount++;
+                }
+
                 var board = FindName("_Board");
                 foreach (var item in this.FindLogicalChildren<CardView>(board as DependencyObject))
                 {
@@ -47,15 +56,6 @@ namespace PokerEvaluationToolUI
                 foreach (var item in this.FindLogicalChildren<CardView>(dead as DependencyObject))
                 {
                     deadCardModels.Add(item.Model);
-                }
-
-                var main = FindName("_MainGrid");
-                foreach (var hand in this.FindLogicalChildren<BaseHand>(main as DependencyObject))
-                {
-                    baseHands.Add(hand.Model);
-                    foreach (var item in hand.Model.CardModels)
-                        allCards.Add(item);
-                    playerCount++;
                 }
 
                 allCards.AddRange(boardModels);
@@ -110,7 +110,7 @@ namespace PokerEvaluationToolUI
         {
             var result = 0UL;
             foreach (var item in boardModels)
-                result |= item.CardAsNumber;
+                result |= item.CardMask;
             return result;
         }
 
@@ -118,7 +118,7 @@ namespace PokerEvaluationToolUI
         {
             var result = 0UL;
             foreach (var item in deadCardModels)
-                result |= item.CardAsNumber;
+                result |= item.CardMask;
             return result;
         }
 
@@ -140,7 +140,7 @@ namespace PokerEvaluationToolUI
                     continue;
                 var t = 0UL;
                 foreach (var card in baseHands[i].CardModels)
-                    t |= card.CardAsNumber;
+                    t |= card.CardMask;
                 result[i] = t;
             }
             return result;

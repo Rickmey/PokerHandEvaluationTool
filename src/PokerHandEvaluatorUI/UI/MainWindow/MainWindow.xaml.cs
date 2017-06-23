@@ -75,8 +75,9 @@ namespace PokerEvaluationToolUI
             switch (gameType)
             {
                 case GameTypes.TexasHoldem: model.GameState = new TexasHoldemGameStateView(); break;
-                case GameTypes.SevenCardStud: model.GameState = new SevenCardStudGameStateView(); break;
-                case GameTypes.Razz: model.GameState = new RazzGameStateView(); break;
+                case GameTypes.SevenCardStud: model.GameState = new SevenCardGameStateView(); break;
+                case GameTypes.Razz: model.GameState = new SevenCardGameStateView(); break;
+                default: throw new ArgumentException("Gametype not found");
             }
             _CardPicker.Reset();
         }

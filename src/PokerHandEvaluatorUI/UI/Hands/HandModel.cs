@@ -12,8 +12,7 @@ namespace PokerEvaluationToolUI
             set => SetValue(ref _odds, value);
         }
 
-        public ObservableCollection<CardView> CardsViews { get; private set; }
-        public ICardViewModel[] CardModels { get; private set; }
+        public IEnumerable<ICardViewModel> CardModels { get; private set; }
 
         public int UsedCardsCount
         {
@@ -22,19 +21,17 @@ namespace PokerEvaluationToolUI
                 int result = 0;
                 foreach (var item in CardModels)
                 {
-                    if (item.CardAsNumber > 0)
+                    if (item.CardMask > 0)
                         result++;
                 }
                 return result;
             }
         }
 
-        public HandModel(IList<CardView> cardViews)
+        public HandModel(IEnumerable<ICardViewModel> cardModels)
         {
-            CardModels = new CardViewModel[cardViews.Count];
-            for (int i = 0; i < cardViews.Count; i++)
-                CardModels[i] = cardViews[i].Model;
-            CardsViews = new ObservableCollection<CardView>(cardViews);
+            CardModels = cardModels;
+
         }
     }
 }

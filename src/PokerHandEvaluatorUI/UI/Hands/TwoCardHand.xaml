@@ -1,0 +1,30 @@
+﻿<local:BaseHand x:Class="PokerEvaluationToolUI.TwoCardHand"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokerEvaluationToolUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid
+        x:Name="_MainContainer"
+        Margin="5"
+        >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <local:Odds
+            DataContext="{Binding Odds}"
+            Grid.ColumnSpan="2"
+            />
+
+        <local:CardView Grid.Row="1" Grid.Column="0"/>
+        <local:CardView Grid.Row="1" Grid.Column="1"/>
+    </Grid>
+</local:BaseHand>
