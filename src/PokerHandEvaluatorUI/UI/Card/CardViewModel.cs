@@ -9,7 +9,7 @@
         bool Highlighted { get; set; }
         CardRanks Rank { get; }
         CardSuits Suit { get; }
-        ulong CardAsNumber { get; }
+        ulong CardMask { get; }
         bool IsEmpty { get; }
         string ToString();
     }
@@ -45,7 +45,10 @@
             get { if (CardData == null) return CardSuits.None; return CardData.Suit; }
         }
 
-        public ulong CardAsNumber
+        /// <summary>
+        /// Representation of a hand as 64 integer.
+        /// </summary>
+        public ulong CardMask
         {
             get => CardData == null ? 0 : CardData.Mask;
         }
