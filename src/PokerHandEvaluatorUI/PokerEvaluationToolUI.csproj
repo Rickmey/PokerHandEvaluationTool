@@ -7,8 +7,8 @@
     <ProjectGuid>{95EAF4FA-8A83-49A7-8A78-0D0203CBA77C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PokerEvalUI</RootNamespace>
-    <AssemblyName>PokerEvalUI</AssemblyName>
+    <RootNamespace>PokerEvaluationToolUI</RootNamespace>
+    <AssemblyName>PokerEvaluationToolUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -86,13 +86,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UI\Hands\BaseHand.cs" />
+    <Compile Include="UI\Hands\SixCardHand.xaml.cs">
+      <DependentUpon>SixCardHand.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Hands\TwoCardHand.xaml.cs">
+      <DependentUpon>TwoCardHand.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\GameStates\BaseGameStateView.cs" />
-    <Compile Include="UI\GameStates\RazzGameStateView.xaml.cs">
-      <DependentUpon>RazzGameStateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Hands\BaseHand.xaml.cs">
-      <DependentUpon>BaseHand.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\CardPicker\CardPickerView.xaml.cs">
       <DependentUpon>CardPickerView.xaml</DependentUpon>
     </Compile>
@@ -109,18 +110,18 @@
       <DependentUpon>CardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Card\CardViewModel.cs" />
-    <Compile Include="UI\GameStates\SevenCardStudGameStateView.xaml.cs">
-      <DependentUpon>SevenCardStudGameStateView.xaml</DependentUpon>
+    <Compile Include="UI\GameStates\SevenCardGameStateView.xaml.cs">
+      <DependentUpon>SevenCardGameStateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\GameStates\TexasHoldemGameStateView.xaml.cs">
       <DependentUpon>TexasHoldemGameStateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModelBase.cs" />
-    <Page Include="UI\GameStates\RazzGameStateView.xaml">
+    <Page Include="UI\Hands\SixCardHand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Hands\BaseHand.xaml">
+    <Page Include="UI\Hands\TwoCardHand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,7 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\GameStates\SevenCardStudGameStateView.xaml">
+    <Page Include="UI\GameStates\SevenCardGameStateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

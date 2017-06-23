@@ -77,7 +77,8 @@ namespace PokerEvaluationToolUI
             var result = rank.ToFriendlyString();
             if (string.IsNullOrEmpty(result))
                 result = "empty";
-            var path = string.Format("pack://application:,,,/PokerEvalUI;component/Resources/{0}.png", result);
+            // TODO hardcoded path are BAD!
+            var path = string.Format("pack://application:,,,/PokerEvaluationToolUI;component/Resources/{0}.png", result);
             return path;
         }
 
@@ -95,7 +96,8 @@ namespace PokerEvaluationToolUI
             var result = suit.ToFriendlyLongString();
             if (string.IsNullOrEmpty(result))
                 result = "empty";
-            var path = string.Format("pack://application:,,,/PokerEvalUI;component/Resources/{0}.png", result);
+            // TODO hardcoded path are BAD!
+            var path = string.Format("pack://application:,,,/PokerEvaluationToolUI;component/Resources/{0}.png", result);
             return path;
         }
 

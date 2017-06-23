@@ -32,13 +32,13 @@
                     Grid.ColumnSpan="3"
                     Grid.Row="0"
                     Grid.RowSpan="3"
-                    Source="{Binding Path=Rank, Converter={StaticResource rankToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvalUI;component/Resources/5.png'}"
+                    Source="{Binding Path=Rank, Converter={StaticResource rankToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvaluationToolUI;component/Resources/5.png'}"
                     />
                 <Image
                     x:Name="_TopLeftImage"
                     Grid.Column="0"
                     Grid.Row="0"
-                    Source="{Binding Path=Suit, Converter={StaticResource suitToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvalUI;component/Resources/diamond.png'}"
+                    Source="{Binding Path=Suit, Converter={StaticResource suitToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvaluationToolUI;component/Resources/diamond.png'}"
                     />
                 <!--Width="{Binding ElementName=Rank, Path=ActualWidth, Converter={StaticResource valueTimesXConverter}, ConverterParameter=0.4}"-->
                 <Image
@@ -80,13 +80,13 @@
                     Grid.ColumnSpan="3"
                     Grid.Row="0"
                     Grid.RowSpan="3"
-                    Source="{Binding Path=Suit, Converter={StaticResource suitToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvalUI;component/Resources/diamond.png'}"
+                    Source="{Binding Path=Suit, Converter={StaticResource suitToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvaluationToolUI;component/Resources/diamond.png'}"
                     />
                 <Image
                     x:Name="_TopLeftImage"
                     Grid.Column="0"
                     Grid.Row="0"
-                    Source="{Binding Path=Rank, Converter={StaticResource rankToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvalUI;component/Resources/5.png'}"
+                    Source="{Binding Path=Rank, Converter={StaticResource rankToImagePathConverter}, FallbackValue='pack://application:,,,/PokerEvaluationToolUI;component/Resources/5.png'}"
                     />
                 <!--Width="{Binding ElementName=Rank, Path=ActualWidth, Converter={StaticResource valueTimesXConverter}, ConverterParameter=0.4}"-->
                 <Image
