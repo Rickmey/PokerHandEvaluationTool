@@ -20,20 +20,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <local:SixCardHand Grid.Column="0" Grid.Row="0"/>
         <local:SixCardHand Grid.Column="1" Grid.Row="0"/>
         <local:SixCardHand Grid.Column="2" Grid.Row="0"/>
-
+        <local:SixCardHand Grid.Column="3" Grid.Row="0"/>
+        
         <local:SixCardHand Grid.Column="0" Grid.Row="1"/>
-        <local:SixCardHand Grid.Column="3" Grid.Row="1"/>
-
-        <local:SixCardHand Grid.Column="1" Grid.Row="2"/>
-        <local:SixCardHand Grid.Column="2" Grid.Row="2"/>
+        <local:SixCardHand Grid.Column="1" Grid.Row="1"/>
+        <local:SixCardHand Grid.Column="2" Grid.Row="1"/>
 
         <!--DEAD-->
         <Grid
             x:Name="_Dead"
-            Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-            HorizontalAlignment="Center" VerticalAlignment="Center">
+            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            HorizontalAlignment="Left" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -45,6 +45,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
             <Label
                 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="99"
                 Content="Dead Cards"

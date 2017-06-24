@@ -5,33 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PokerEvaluationToolUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid
-        x:Name="_MainContainer"
-        Margin="5"
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <Viewbox
+        Margin="10"
         >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
+        <DockPanel>
 
-        <local:Odds
-            DataContext="{Binding Odds}"
-            Grid.ColumnSpan="3"
-            />
+            <local:Odds
+                DataContext="{Binding Odds}"
+                DockPanel.Dock="Top"
+                />
+            <Grid>
+                <local:CardView HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" Width="40"/>
+                <local:CardView HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Width="40"/>
+                <local:CardView HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Top" Width="40"/>
 
-        <local:CardView Grid.Row="1" Grid.Column="0"/>
-        <local:CardView Grid.Row="1" Grid.Column="1"/>
-        <local:CardView Grid.Row="1" Grid.Column="2"/>
-
-        <local:CardView Grid.Row="2" Grid.Column="0"/>
-        <local:CardView Grid.Row="2" Grid.Column="1"/>
-        <local:CardView Grid.Row="2" Grid.Column="2"/>
-    </Grid>
+                <local:CardView HorizontalAlignment="Left" Margin="0,82,0,0" VerticalAlignment="Top" Width="40" />
+                <local:CardView HorizontalAlignment="Left" Margin="30,82,0,0" VerticalAlignment="Top" Width="40" />
+                <local:CardView HorizontalAlignment="Left" Margin="60,82,0,0" VerticalAlignment="Top" Width="40" />
+            </Grid>
+        </DockPanel>
+    </Viewbox>
 </local:BaseHand>
